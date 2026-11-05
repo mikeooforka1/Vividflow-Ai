@@ -1,53 +1,16 @@
-# AI Video Clip Maker
+# VividFlow — CPU face and audio studio
 
-This project is an AI-powered video clip maker that allows users to upload video files or links, processes the content to create clips, adds captions, and provides downloadable clips.
+CRA 5.0.1 + React 18, Yarn 4, Express 5, and a private Python JSON-line engine automatically started by Express.
 
-## Client-Side Overview
+Updated features:
+- Existing object/person tracked image overlays preserved.
+- Face identity confidence and ambiguity checks, movement/scale checks, conservative handling of cuts and loss. Fixed source identity throughout the clip.
+- Optional natural colour blending; the original model blend remains the default.
+- Face swap followed by uploaded-audio Wav2Lip inference on CPU. Only the selected tracked face's lower region is edited; all other people remain outside the lip-sync inference region.
+- Separate render stages, measured stage throughput/ETA, frame statistics, cancellation, readiness diagnosis, and original/result previews.
 
-The client-side of the application is built using React. Below are the key components and pages:
+Read **SETUP-WINDOWS.md** first. Preserve your existing backend/.env, .venv and model files. Install the new optional CPU dependencies and official lip checkpoint before expecting the new mode to become selectable.
 
-- **App.jsx**: The main component that sets up the application structure and routing.
-- **UploadForm.jsx**: A form for users to upload a video file or enter a video link.
-- **ClipList.jsx**: Displays a list of generated video clips and allows users to download them.
-- **CaptionEditor.jsx**: Allows users to edit captions for the generated clips.
-- **Home.jsx**: The landing page containing the upload form and introductory content.
-- **Download.jsx**: Displays downloadable clips and their captions.
+Backend and frontend run in separate terminals. At the combined project root, `corepack yarn install`, `corepack yarn build`, `corepack yarn test`, and `corepack yarn setup:python --lipsync` are available. In backend use `corepack yarn start`; in frontend use `corepack yarn start`.
 
-## Installation
-
-To set up the client-side of the application, follow these steps:
-
-1. Navigate to the `client` directory:
-   ```
-   cd client
-   ```
-
-2. Install the dependencies:
-   ```
-   npm install
-   ```
-
-3. Start the development server:
-   ```
-   npm start
-   ```
-
-## API Integration
-
-The client communicates with the backend server through the following utility:
-
-- **api.js**: Contains functions for making API calls to handle video uploads, processing requests, and downloading clips.
-
-## Usage
-
-1. Upload a video file or enter a video link using the form on the home page.
-2. After processing, view the generated clips and edit captions if necessary.
-3. Download the processed clips from the download page.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a pull request or open an issue for any enhancements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License.
+No video or image is sent to a cloud service. Models run locally. No model weights, private .env, environments, uploaded media or node_modules are shipped. Read TEST-REPORT.md for tested behaviours and visual-quality limitations.
